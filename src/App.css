@@ -15,7 +15,26 @@
 }
 .card-title{
   height:40px;
-  line-height: 40px;
+  display: flex;
+  align-items: center;
+}
+.todolist-select-button{
+  display: inline-block;
+  padding: 4px;
+  font-size: 10px;
+  border-radius: 5px;
+  border: 1px solid blue;
+  color:blue;
+  margin-left: 10px;
+  transition: all .2s;
+  cursor: pointer;
+}
+.todolist-select-button:hover{
+  background-color: rgba(0,0,255,0.2);
+}
+.todolist-select-button-active{
+  background-color: blue !important;
+  color:white;
 }
 .card-notice{
   position: absolute;
@@ -34,8 +53,34 @@
   overflow: hidden;
   cursor: pointer;
 }
-
-
+.todolist-undo{
+  position: absolute;
+  height: 30px;
+  bottom: -40px;
+  font-size: 12px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  color: rgb(200,200,200);
+}
+.todolist-undo-button{
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 10px;
+  border-radius: 5px;
+  background-color: #dc312f;
+  color: white;
+  margin-left: 10px;
+  transition: all .2s;
+  cursor: pointer;
+}
+.todolist-undo-button:first-child{
+  background-color: blue;
+}
+.todolist-undo-button-hidden{
+  pointer-events: none;
+  background-color: #ccc !important;
+}
 
 
 

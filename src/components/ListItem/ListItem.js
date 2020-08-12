@@ -15,11 +15,13 @@ export default class ListItem extends React.Component{
       this.todoListNumberConfig=['130,214,185','220,49,47','107,189,242','180,180,180']
     }
     todoTextActive(i,e){
-      this.props.onTodoTextActive(i);
-      //等节点重渲染完后再聚焦
-      setTimeout(()=>{ 
-        this.inputRef.focus();
-      },0);
+      if(!this.props.info.isFinish){
+        this.props.onTodoTextActive(i);
+        //等节点重渲染完后再聚焦
+        setTimeout(()=>{ 
+          this.inputRef.focus();
+        },0);
+      }
     }
     todoTextOk(i,e){
       this.props.onTodoTextOk(i); 
@@ -35,6 +37,14 @@ export default class ListItem extends React.Component{
       },()=>{
         message.info('已取消');
       });
+      e.stopPropagation();
+    }
+    todoTextFinish(i,e){
+      this.props.onTodoTextFinish(i);
+      e.stopPropagation();
+    }
+    todoTextCancelFinish(i,e){
+      this.props.onTodoTextCancelFinish(i);
       e.stopPropagation();
     }
     deleteConfirm(ok,no) {
@@ -58,8 +68,20 @@ export default class ListItem extends React.Component{
         <li key={this.props.info.id} onClick={this.todoTextActive.bind(this,this.props.index)} className={this.props.info.todoTextActive?'todolist-item-active':''}>
           {
             this.props.index<this.todoListNumberConfig.length-1
-            ?<div className="todolist-number" style={{backgroundColor:`rgb(${this.todoListNumberConfig[this.props.index]})`,boxShadow:`0px 4px 8px -2px rgba(${this.todoListNumberConfig[this.props.index]},0.5)`}}>{this.props.index+1}</div>
-            :<div className="todolist-number" style={{backgroundColor:`rgb(${this.todoListNumberConfig[3]})`,boxShadow:`0px 4px 8px -2px rgba(${this.todoListNumberConfig[3]},0.5)`}}>{this.props.index+1}</div>
+            ?<div className="todolist-number" style={{backgroundColor:`rgb(${this.todoListNumberConfig[this.props.index]})`,boxShadow:`0px 4px 8px -2px rgba(${this.todoListNumberConfig[this.props.index]},0.5)`}}>
+              {
+                this.props.info.isFinish
+                ?<span><CheckOutlined /></span>
+                :<span>{this.props.index+1}</span>
+              }
+            </div>
+            :<div className="todolist-number" style={{backgroundColor:`rgb(${this.todoListNumberConfig[3]})`,boxShadow:`0px 4px 8px -2px rgba(${this.todoListNumberConfig[3]},0.5)`}}>
+              {
+                this.props.info.isFinish
+                ?<span><CheckOutlined /></span>
+                :<span>{this.props.index+1}</span>
+              }
+            </div>
           }
           <VariableInput
           info={this.props.info}
@@ -69,17 +91,30 @@ export default class ListItem extends React.Component{
           />
           {
             this.props.info.todoTextActive
-            ?<div>
+            ?<>
               <div className="todolist-button todolist-button-circle" style={{right:'60px'}}>
                 <Button type="primary" shape="circle" size="small" danger icon={<CloseOutlined />} onClick={this.todoTextNo.bind(this,this.props.index)}/>
               </div>
               <div className="todolist-button todolist-button-circle">
                 <Button type="primary" shape="circle" size="small" icon={<CheckOutlined />} onClick={this.todoTextOk.bind(this,this.props.index)}/>
               </div>
-            </div>
-            :<div className="todolist-button">
-              <Button type="primary" danger size="small" onClick={this.todoTextDel.bind(this,this.props.index)}>删除</Button>
-            </div>
+            </>
+            :
+            <>
+              {
+                this.props.info.isFinish
+                ?<div className="todolist-button" style={{right:'80px'}}>
+                  <Button type="primary" size="small" onClick={this.todoTextCancelFinish.bind(this,this.props.index)}>未完成</Button>
+                </div>
+                :<div className="todolist-button" style={{right:'80px'}}>
+                  <Button type="primary" size="small" onClick={this.todoTextFinish.bind(this,this.props.index)}>完成</Button>
+                </div>
+              }
+              
+              <div className="todolist-button">
+                <Button type="primary" danger size="small" onClick={this.todoTextDel.bind(this,this.props.index)}>删除</Button>
+              </div>
+            </>
           }
           
         </li>

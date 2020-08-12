@@ -12,3 +12,7 @@
   background-color: white;
   color: #333 !important;
 }
+.todolist-text-finish{
+  color:#ccc !important;
+  text-decoration: line-through;
+}

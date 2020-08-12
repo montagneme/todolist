@@ -28,6 +28,8 @@ export default class ToDoList extends React.Component{
                   onTodoTextOk={this.props.onTodoTextOk}
                   onTodoTextNo={this.props.onTodoTextNo}
                   onTodoTextDel={this.props.onTodoTextDel}
+                  onTodoTextFinish={this.props.onTodoTextFinish}
+                  onTodoTextCancelFinish={this.props.onTodoTextCancelFinish}
                   />
                 </CSSTransition>
               )

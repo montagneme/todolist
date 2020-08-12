@@ -11,6 +11,7 @@
   margin: auto;
   left: 8px;
   border-radius: 100%;
+  font-size: 12px;
 }
 
 .todolist-item-active{

@@ -20,7 +20,7 @@ export default class VariableInput extends React.Component{
         placeholder="请输入文字"
         disabled={!this.props.info.todoTextActive} 
         type="text" 
-        className={`todolist-text ${this.props.info.todoTextActive?'todolist-text-active':''}`} 
+        className={`todolist-text ${this.props.info.todoTextActive?'todolist-text-active':''} ${this.props.info.isFinish?'todolist-text-finish':''}`} 
         onChange={this.todoTextChange.bind(this,this.props.index)}
         value={this.props.info.txt}
         ref={(ref)=>this.inputRef=ref}
